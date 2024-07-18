@@ -15,7 +15,7 @@ public class CloudinaryImageServiceAdapter : ImageServiceBase
         Account? account = configuration.GetSection("CloudinaryAccount").Get<Account>();
         _cloudinary = new Cloudinary(account);
     }
-
+    // CDN => Content Delivery Network
     public override async Task<string> UploadAsync(IFormFile formFile)
     {
         await FileMustBeInImageFormat(formFile);
