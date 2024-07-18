@@ -26,7 +26,7 @@ public class CloudinaryImageServiceAdapter : ImageServiceBase
                 File = new FileDescription(formFile.FileName, stream: formFile.OpenReadStream()),
                 UseFilename = false,
                 UniqueFilename = true,
-                Overwrite = false
+                Overwrite = false,
             };
         ImageUploadResult imageUploadResult = await _cloudinary.UploadAsync(imageUploadParams);
 
