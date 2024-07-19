@@ -93,48 +93,7 @@ function App() {
 	return (
 		<>
 			<Header></Header>
-			<button
-				onClick={() => {
-					onPlusClick();
-				}}
-			>
-				+
-			</button>
-			<button onClick={onMinusClick}>-</button>
-			<p>{count}</p>
-
-			<hr />
-			{/* Two Way Data Binding */}
-			<input
-				onChange={e => {
-					setTodo(e.target.value);
-				}}
-				value={todo}
-				type="text"
-				placeholder="Add to do"
-			/>
-			<button
-				onClick={() => {
-					addToDo();
-				}}
-			>
-				Add
-			</button>
-			<ul>
-				{/* Iterasyon  => Key */}
-				{toDoList.map(todo => (
-					<li key={todo.id}>{todo.title}</li>
-				))}
-			</ul>
-
-			<hr />
-
-			{dynamicToDoList.map((todo: ToDoModel) => (
-				<p key={todo.id}>
-					{todo.title} - {todo.userId} -{" "}
-					{todo.completed ? "Tamamlandı" : "Tamamlanmadı"}
-				</p>
-			))}
+			<p className="text-xl text-blue-700">Merhaba</p>
 		</>
 	);
 }
