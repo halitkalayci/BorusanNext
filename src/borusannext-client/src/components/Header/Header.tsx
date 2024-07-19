@@ -65,25 +65,13 @@ const Header = (props: Props) => {
 									className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
 									aria-current="page"
 								>
-									Dashboard
+									Ana Sayfa
 								</a>
 								<a
 									href="#"
 									className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 								>
-									Team
-								</a>
-								<a
-									href="#"
-									className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-								>
-									Projects
-								</a>
-								<a
-									href="#"
-									className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-								>
-									Calendar
+									Giriş Yap
 								</a>
 							</div>
 						</div>
@@ -141,25 +129,13 @@ const Header = (props: Props) => {
 						className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
 						aria-current="page"
 					>
-						Dashboard
+						Ana Sayfa
 					</a>
 					<a
 						href="#"
 						className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 					>
-						Team
-					</a>
-					<a
-						href="#"
-						className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-					>
-						Projects
-					</a>
-					<a
-						href="#"
-						className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-					>
-						Calendar
+						Giriş Yap
 					</a>
 				</div>
 			</div>
