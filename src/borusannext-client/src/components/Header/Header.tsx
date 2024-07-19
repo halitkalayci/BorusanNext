@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 type Props = {};
 
@@ -62,19 +62,25 @@ const Header = (props: Props) => {
 						<div className="hidden sm:ml-6 sm:block">
 							<div className="flex space-x-4">
 								{/* SPA'ların hepsinde iç linklerde href kullanımı YASAK! */}
-								<Link
+								<NavLink
 									to="/"
-									className="rounded-md  px-3 py-2 text-sm font-medium text-white"
+									className={({isActive}) =>
+										"rounded-md  px-3 py-2 text-sm font-medium text-white " +
+										(isActive ? "bg-gray-900" : "")
+									}
 									aria-current="page"
 								>
 									Ana Sayfa
-								</Link>
-								<Link
+								</NavLink>
+								<NavLink
 									to="/login"
-									className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+									className={({isActive}) =>
+										"rounded-md  px-3 py-2 text-sm font-medium text-white " +
+										(isActive ? "bg-gray-900" : "")
+									}
 								>
 									Giriş Yap
-								</Link>
+								</NavLink>
 							</div>
 						</div>
 					</div>
