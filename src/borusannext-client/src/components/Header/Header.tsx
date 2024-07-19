@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 type Props = {};
 
@@ -60,19 +61,20 @@ const Header = (props: Props) => {
 						</div>
 						<div className="hidden sm:ml-6 sm:block">
 							<div className="flex space-x-4">
-								<a
-									href="#"
-									className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+								{/* SPA'ların hepsinde iç linklerde href kullanımı YASAK! */}
+								<Link
+									to="/"
+									className="rounded-md  px-3 py-2 text-sm font-medium text-white"
 									aria-current="page"
 								>
 									Ana Sayfa
-								</a>
-								<a
-									href="#"
+								</Link>
+								<Link
+									to="/login"
 									className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 								>
 									Giriş Yap
-								</a>
+								</Link>
 							</div>
 						</div>
 					</div>
