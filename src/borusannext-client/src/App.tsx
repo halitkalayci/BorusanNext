@@ -1,37 +1,44 @@
 import {useState} from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import "./App.css"; // css import
+import Header from "./Header";
 
-// HTML ve CSS konularını bitirmek.
-// Bootstrap,Tailwind
+// RFC => React Functional Component
+// JS + HTML => JSX
+
 function App() {
-	const [count, setCount] = useState(0);
-	// JSX => TSX
+	// Fonksiyonalite
+	let x: number = 0;
+	// State => içerisindeki değişkenler değiştiğinde UI update edilir.
+
+	// count {get; set;}
+	// State içerisinde count isminde bir değişken oluşturur.
+	const [count, setCount] = useState<number>(0);
+
+	function onPlusClick() {
+		setCount(count + 1);
+		x++;
+		console.log(x);
+	}
+	function onMinusClick() {
+		setCount(count - 1);
+		x--;
+		console.log(x);
+	}
+	// var,let => ARAŞTIRMA
+	// const => sabitler
+
+	// { JS kodu }
 	return (
 		<>
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Merhaba Borusan</h1>
-			<div className="card">
-				<button onClick={() => setCount(count => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
+			<Header></Header>
+			<button onClick={onPlusClick}>+</button>
+			<button onClick={onMinusClick}>-</button>
+			<p>{x}</p>
+			<p>{count}</p>
 		</>
 	);
 }
 
-export default App;
+// export
+export default App; // ilgili dosyanın main içeriğini ifade ediyor.
+// c# => public protected
