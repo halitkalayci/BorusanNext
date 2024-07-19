@@ -53,6 +53,12 @@ function App() {
 	// { JS kodu }
 	const [todo, setTodo] = useState<string>("");
 
+	const addToDo = () => {
+		// Destructring Assignment
+		setToDoList([...toDoList, {id: Math.random(), title: todo}]);
+		setTodo("");
+	};
+
 	return (
 		<>
 			<Header></Header>
@@ -76,7 +82,13 @@ function App() {
 				type="text"
 				placeholder="Add to do"
 			/>
-			<button>Add</button>
+			<button
+				onClick={() => {
+					addToDo();
+				}}
+			>
+				Add
+			</button>
 			<ul>
 				{/* Iterasyon  => Key */}
 				{toDoList.map(todo => (
