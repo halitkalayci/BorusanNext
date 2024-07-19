@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import "./App.css"; // css import
 import Header from "./Header";
 import {ToDoModel} from "./models/toDoModel";
+import axios from "axios";
 
 // RFC => React Functional Component
 // JS + HTML => JSX
@@ -77,10 +78,16 @@ function App() {
 		// setDynamicToDoList(json);
 		// console.log(json);
 
-		fetch("https://jsonplaceholder.typicode.com/todos")
-			.then(response => response.json())
-			.then(json => setDynamicToDoList(json))
-			.catch(e => console.log("İstek hatalı"));
+		// fetch("https://jsonplaceholder.typicode.com/todos")
+		// 	.then(response => response.json())
+		// 	.then(json => setDynamicToDoList(json))
+		// 	.catch(e => console.log("İstek hatalı"));
+
+		axios
+			.get<ToDoModel[]>("https://jsonplaceholder.typicode.com/todos")
+			.then(response => {
+				setDynamicToDoList(response.data);
+			});
 	};
 
 	return (
@@ -123,7 +130,7 @@ function App() {
 			<hr />
 
 			{dynamicToDoList.map((todo: ToDoModel) => (
-				<p>
+				<p key={todo.id}>
 					{todo.title} - {todo.userId} -{" "}
 					{todo.completed ? "Tamamlandı" : "Tamamlanmadı"}
 				</p>
