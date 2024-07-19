@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import "./App.css"; // css import
 import Header from "./Header";
+import {ToDoModel} from "./models/toDoModel";
 
 // RFC => React Functional Component
 // JS + HTML => JSX
@@ -59,6 +60,29 @@ function App() {
 		setTodo("");
 	};
 
+	const [dynamicToDoList, setDynamicToDoList] = useState<ToDoModel[]>([]);
+
+	useEffect(() => {
+		fetchToDos();
+	}, []);
+
+	const fetchToDos = async () => {
+		// https://jsonplaceholder.typicode.com/todos
+
+		// 2 şekil
+		// await - async
+		// promise - then - catch
+		// const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+		// const json = await response.json();
+		// setDynamicToDoList(json);
+		// console.log(json);
+
+		fetch("https://jsonplaceholder.typicode.com/todos")
+			.then(response => response.json())
+			.then(json => setDynamicToDoList(json))
+			.catch(e => console.log("İstek hatalı"));
+	};
+
 	return (
 		<>
 			<Header></Header>
@@ -95,6 +119,15 @@ function App() {
 					<li key={todo.id}>{todo.title}</li>
 				))}
 			</ul>
+
+			<hr />
+
+			{dynamicToDoList.map((todo: ToDoModel) => (
+				<p>
+					{todo.title} - {todo.userId} -{" "}
+					{todo.completed ? "Tamamlandı" : "Tamamlanmadı"}
+				</p>
+			))}
 		</>
 	);
 }
