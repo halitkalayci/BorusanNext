@@ -37,6 +37,7 @@ const Login = (props: Props) => {
 						<Field
 							label="E-posta"
 							id="email"
+							placeholder="user@borusan.com"
 							name="email"
 							type="email"
 							component={CustomInput}
@@ -48,18 +49,6 @@ const Login = (props: Props) => {
 							type="password"
 							component={CustomInput}
 						/>
-						{/* <CustomInput
-							label="E-posta"
-							id="email"
-							name="email"
-							placeholder="name@borusan.com"
-						/>
-						<CustomInput
-							label="Şifre"
-							id="password"
-							name="password"
-							type="password"
-						/> */}
 						<Button type="submit" className="mt-3">
 							Submit
 						</Button>

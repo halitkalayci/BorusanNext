@@ -1,21 +1,18 @@
 import {Label, TextInput} from "flowbite-react";
-import {Field, ErrorMessage} from "formik";
+import {Field, ErrorMessage, FieldProps} from "formik";
 import React from "react";
 
-type Props = {
+interface Props extends FieldProps {
 	label: string;
 	id: string;
 	type?: string;
 	placeholder?: string;
 	name: string;
-	field: any;
-	form: any;
-};
+}
 
 const CustomInput: React.FC<Props> = (props: Props) => {
-	console.log(props);
 	const error = props.form.errors[props.field.name];
-	const borderClass = error ? "border-red-500" : "";
+	const borderClass = error ? "invalid-input" : "";
 
 	return (
 		<div>
@@ -30,7 +27,7 @@ const CustomInput: React.FC<Props> = (props: Props) => {
 				{...props.field}
 			/>
 			<ErrorMessage
-				name={props.name}
+				name={props.field.name}
 				component={"div"}
 				className="text-red-800"
 			/>
