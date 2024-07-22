@@ -26,11 +26,13 @@ const CustomInput: React.FC<Props> = (props: Props) => {
 				className={borderClass}
 				{...props.field}
 			/>
-			<ErrorMessage
-				name={props.field.name}
-				component={"div"}
-				className="text-red-800"
-			/>
+			<div style={{maxWidth: 150}}>
+				<ErrorMessage
+					name={props.field.name}
+					component={"div"}
+					className="text-red-800"
+				/>
+			</div>
 		</div>
 	);
 };

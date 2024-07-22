@@ -3,7 +3,8 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import React from "react";
 import * as yup from "yup";
 import CustomInput from "../../components/CustomInput/CustomInput";
-
+import "./Login.css";
+import authService from "../../services/authService";
 type Props = {};
 
 type LoginFormValues = {
@@ -22,16 +23,25 @@ const Login = (props: Props) => {
 		password: "",
 	};
 
+	const submit = async (formValues: LoginFormValues) => {
+		const loginResponse = await authService.login({
+			...formValues,
+			authenticatorCode: "",
+		});
+
+		console.log(loginResponse.data);
+	};
+
 	return (
-		<div className="flex w-full h-[100vh] justify-center items-center">
-			<Card className="p-10">
+		<div className="flex min-w-full h-[100vh] justify-center items-center">
+			<Card className="p-10 card">
 				<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 					Giriş Yap
 				</h5>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
-					onSubmit={e => console.log(e)}
+					onSubmit={e => submit(e)}
 				>
 					<Form className="flex flex-col w-full">
 						<Field
