@@ -24,7 +24,14 @@ const Homepage = (props: Props) => {
 		<div className="flex items-center justify-center mt-5">
 			<div className="grid grid-cols-12">
 				{todoList.map(todo => {
-					return <TodoCard todo={todo} />;
+					return (
+						<TodoCard
+							todo={todo}
+							onBtnClick={(id: number) => {
+								console.log(id + " id'li todoya tıklandı.");
+							}}
+						/>
+					);
 				})}
 			</div>
 		</div>

@@ -3,9 +3,11 @@ import {ToDoModel} from "../../models/toDoModel";
 
 type Props = {
 	todo: ToDoModel; // Zorunlu
+	onBtnClick: (id: number) => void;
 	// todo? : ToDoModel // opsiyonel
 };
-
+// Input
+// Output
 const TodoCard = (props: Props) => {
 	return (
 		<div className="col-span-3 mb-3 mr-3">
@@ -23,6 +25,14 @@ const TodoCard = (props: Props) => {
 						)}
 					</span>
 					<span>
+						<button
+							onClick={() => {
+								props.onBtnClick(props.todo.id);
+							}}
+							className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+						>
+							Tıkla
+						</button>
 						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 							Detaya Git
 						</button>
