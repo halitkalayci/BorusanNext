@@ -1,22 +1,22 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Homepage from "./pages/Homepage/Homepage";
 import Login from "./pages/Login/Login";
 import MainLayout from "./layouts/MainLayout/MainLayout";
+import {mainLayoutRoutes, noLayoutRoutes} from "./routes/routes";
 
 const App = () => {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
-					<Route
-						path={""}
-						element={
-							<MainLayout>
-								<Homepage />
-							</MainLayout>
-						}
-					/>
-					<Route path={"/login"} element={<Login />} />
+					{mainLayoutRoutes.map(route => (
+						<Route
+							path={route.path}
+							element={<MainLayout>{route.element}</MainLayout>}
+						/>
+					))}
+					{noLayoutRoutes.map(route => (
+						<Route path={route.path} element={route.element} />
+					))}
 				</Routes>
 			</BrowserRouter>
 		</>
