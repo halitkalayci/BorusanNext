@@ -2,6 +2,7 @@ import {Button, Card, Label, TextInput} from "flowbite-react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import React from "react";
 import * as yup from "yup";
+import CustomInput from "../../components/CustomInput/CustomInput";
 
 type Props = {};
 
@@ -33,34 +34,32 @@ const Login = (props: Props) => {
 					onSubmit={e => console.log(e)}
 				>
 					<Form className="flex flex-col w-full">
-						<div>
-							<div className="mb-2 block">
-								<Label htmlFor="email1" value="E-posta" />
-							</div>
-							<Field
-								id="email1"
-								type="email"
-								placeholder="name@flowbite.com"
-								required
-								name="email"
-							/>
-							<ErrorMessage
-								name="email"
-								component={"div"}
-								className="text-red-500"
-							/>
-						</div>
-						<div>
-							<div className="mb-2 block">
-								<Label htmlFor="password1" value="Şifre" />
-							</div>
-							<Field id="password1" type="password" required name="password" />
-							<ErrorMessage
-								name="password"
-								component={"div"}
-								className="text-red-500"
-							/>
-						</div>
+						<Field
+							label="E-posta"
+							id="email"
+							name="email"
+							type="email"
+							component={CustomInput}
+						/>
+						<Field
+							label="Şifre"
+							id="password"
+							name="password"
+							type="password"
+							component={CustomInput}
+						/>
+						{/* <CustomInput
+							label="E-posta"
+							id="email"
+							name="email"
+							placeholder="name@borusan.com"
+						/>
+						<CustomInput
+							label="Şifre"
+							id="password"
+							name="password"
+							type="password"
+						/> */}
 						<Button type="submit" className="mt-3">
 							Submit
 						</Button>
