@@ -4,7 +4,7 @@ import React from "react";
 import * as yup from "yup";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import "./Login.css";
-import authService from "../../services/authService";
+import {AuthApi} from "../../api";
 type Props = {};
 
 type LoginFormValues = {
@@ -24,7 +24,9 @@ const Login = (props: Props) => {
 	};
 
 	const submit = async (formValues: LoginFormValues) => {
-		const loginResponse = await authService.login({
+		const authApi = new AuthApi();
+
+		const loginResponse = await authApi.apiAuthLoginPost({
 			...formValues,
 			authenticatorCode: "",
 		});
