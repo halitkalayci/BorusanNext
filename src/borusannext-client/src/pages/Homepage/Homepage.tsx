@@ -21,7 +21,9 @@ const Homepage = (props: Props) => {
 
 		setBrandList(brands.data);
 	};
-
+	// Brand listesi
+	// TODO: Araba listesi sayfalama ile birlikte tablo kullanmadan (tercihen Card) listelenmeli.
+	// TODO: Sayfalama pagination ile değil infinite scroll ile yapılmalı. (BUTONla çözebiliriz.)
 	return (
 		<div className="flex items-center justify-center mt-5">
 			<div className="overflow-x-auto">
@@ -68,3 +70,4 @@ const Homepage = (props: Props) => {
 };
 
 export default Homepage;
+// 11:30

@@ -17,7 +17,7 @@ const Login = (props: Props) => {
 	const navigate = useNavigate(); // hooks
 
 	const validationSchema = yup.object({
-		email: yup.string().required().email(),
+		email: yup.string(), //required().email(),
 		password: yup.string().required().min(3).max(10), //.matches(),
 	});
 
@@ -38,7 +38,7 @@ const Login = (props: Props) => {
 
 		navigate("/");
 	};
-
+	//TODO: Register sayfası tasarlanması.
 	return (
 		<div className="flex min-w-full h-[100vh] justify-center items-center">
 			<Card className="p-10 card">
@@ -56,7 +56,7 @@ const Login = (props: Props) => {
 							id="email"
 							placeholder="user@borusan.com"
 							name="email"
-							type="email"
+							type="text"
 							component={CustomInput}
 						/>
 						<Field

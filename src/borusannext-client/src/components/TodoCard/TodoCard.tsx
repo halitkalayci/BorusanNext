@@ -2,7 +2,7 @@ import React from "react";
 import {ToDoModel} from "../../models/toDoModel";
 
 type Props = {
-	todo: ToDoModel; // Zorunlu
+	todo: ToDoModel;
 	onBtnClick: (id: number) => void;
 	// todo? : ToDoModel // opsiyonel
 };
