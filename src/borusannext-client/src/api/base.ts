@@ -59,7 +59,6 @@ export class BaseAPI {
 			this.configuration = configuration;
 			this.basePath = configuration.basePath ?? basePath;
 		}
-
 		setupInterceptors(axios);
 	}
 }

@@ -199,6 +199,80 @@ export interface DeleteUserOperationClaimCommand {
 /**
  * 
  * @export
+ * @interface GetListBrandListItemDto
+ */
+export interface GetListBrandListItemDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetListBrandListItemDto
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetListBrandListItemDto
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetListBrandListItemDto
+     */
+    'logo'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface GetListBrandListItemDtoGetListResponse
+ */
+export interface GetListBrandListItemDtoGetListResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetListBrandListItemDtoGetListResponse
+     */
+    'index'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetListBrandListItemDtoGetListResponse
+     */
+    'size'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetListBrandListItemDtoGetListResponse
+     */
+    'count'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetListBrandListItemDtoGetListResponse
+     */
+    'pages'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetListBrandListItemDtoGetListResponse
+     */
+    'hasPrevious'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetListBrandListItemDtoGetListResponse
+     */
+    'hasNext'?: boolean;
+    /**
+     * 
+     * @type {Array<GetListBrandListItemDto>}
+     * @memberof GetListBrandListItemDtoGetListResponse
+     */
+    'items'?: Array<GetListBrandListItemDto> | null;
+}
+/**
+ * 
+ * @export
  * @interface LoggedHttpResponse
  */
 export interface LoggedHttpResponse {
@@ -1225,7 +1299,7 @@ export const BrandsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiBrandsGet(pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiBrandsGet(pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetListBrandListItemDtoGetListResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiBrandsGet(pageIndex, pageSize, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['BrandsApi.apiBrandsGet']?.[localVarOperationServerIndex]?.url;
@@ -1298,7 +1372,7 @@ export const BrandsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiBrandsGet(pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<void> {
+        apiBrandsGet(pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<GetListBrandListItemDtoGetListResponse> {
             return localVarFp.apiBrandsGet(pageIndex, pageSize, options).then((request) => request(axios, basePath));
         },
         /**

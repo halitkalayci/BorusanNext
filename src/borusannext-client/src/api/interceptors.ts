@@ -8,4 +8,15 @@ export const setupInterceptors = (axiosInstance: AxiosInstance) => {
 		if (token) config.headers.Authorization = "Bearer " + token;
 		return config;
 	});
+
+	axiosInstance.interceptors.request.use(
+		response => {
+			return response;
+		},
+		error => {
+			// Error handling..
+			// TODO: Global ex. handling.
+			return Promise.reject(error);
+		},
+	);
 };

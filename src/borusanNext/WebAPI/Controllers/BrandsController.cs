@@ -45,7 +45,7 @@ public class BrandsController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
+    public async Task<ActionResult<GetListResponse<GetListBrandListItemDto>>> GetList([FromQuery] PageRequest pageRequest)
     {
         GetListBrandQuery getListBrandQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListBrandListItemDto> response = await Mediator.Send(getListBrandQuery);
