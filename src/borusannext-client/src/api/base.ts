@@ -17,6 +17,7 @@ import type {Configuration} from "./configuration";
 // @ts-ignore
 import type {AxiosPromise, AxiosInstance, RawAxiosRequestConfig} from "axios";
 import globalAxios from "axios";
+import {setupInterceptors} from "./interceptors";
 
 export const BASE_PATH = "http://localhost:60805".replace(/\/+$/, "");
 
@@ -58,6 +59,8 @@ export class BaseAPI {
 			this.configuration = configuration;
 			this.basePath = configuration.basePath ?? basePath;
 		}
+
+		setupInterceptors(axios);
 	}
 }
 
