@@ -5,6 +5,7 @@ import * as yup from "yup";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import "./Login.css";
 import {AuthApi} from "../../api";
+import {useNavigate} from "react-router-dom";
 type Props = {};
 
 type LoginFormValues = {
@@ -13,6 +14,8 @@ type LoginFormValues = {
 };
 
 const Login = (props: Props) => {
+	const navigate = useNavigate(); // hooks
+
 	const validationSchema = yup.object({
 		email: yup.string().required().email(),
 		password: yup.string().required().min(3).max(10), //.matches(),
@@ -32,6 +35,8 @@ const Login = (props: Props) => {
 		});
 
 		localStorage.setItem("token", loginResponse.data.accessToken?.token!);
+
+		navigate("/");
 	};
 
 	return (
