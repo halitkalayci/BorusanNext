@@ -31,7 +31,7 @@ const Login = (props: Props) => {
 			authenticatorCode: "",
 		});
 
-		console.log(loginResponse.data);
+		localStorage.setItem("token", loginResponse.data.accessToken?.token!);
 	};
 
 	return (

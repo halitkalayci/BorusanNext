@@ -26,6 +26,41 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface AccessToken
+ */
+export interface AccessToken {
+    /**
+     * 
+     * @type {string}
+     * @memberof AccessToken
+     */
+    'token'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof AccessToken
+     */
+    'expirationDate'?: string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const AuthenticatorType = {
+    NUMBER_0: 0,
+    NUMBER_1: 1,
+    NUMBER_2: 2,
+    NUMBER_3: 3
+} as const;
+
+export type AuthenticatorType = typeof AuthenticatorType[keyof typeof AuthenticatorType];
+
+
+/**
+ * 
+ * @export
  * @interface CreateOperationClaimCommand
  */
 export interface CreateOperationClaimCommand {
@@ -161,6 +196,27 @@ export interface DeleteUserOperationClaimCommand {
      */
     'roles'?: Array<string> | null;
 }
+/**
+ * 
+ * @export
+ * @interface LoggedHttpResponse
+ */
+export interface LoggedHttpResponse {
+    /**
+     * 
+     * @type {AccessToken}
+     * @memberof LoggedHttpResponse
+     */
+    'accessToken'?: AccessToken;
+    /**
+     * 
+     * @type {AuthenticatorType}
+     * @memberof LoggedHttpResponse
+     */
+    'requiredAuthenticatorType'?: AuthenticatorType;
+}
+
+
 /**
  * 
  * @export
@@ -696,7 +752,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiAuthLoginPost(userForLoginDto?: UserForLoginDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiAuthLoginPost(userForLoginDto?: UserForLoginDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoggedHttpResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthLoginPost(userForLoginDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.apiAuthLoginPost']?.[localVarOperationServerIndex]?.url;
@@ -793,7 +849,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthLoginPost(userForLoginDto?: UserForLoginDto, options?: any): AxiosPromise<void> {
+        apiAuthLoginPost(userForLoginDto?: UserForLoginDto, options?: any): AxiosPromise<LoggedHttpResponse> {
             return localVarFp.apiAuthLoginPost(userForLoginDto, options).then((request) => request(axios, basePath));
         },
         /**
