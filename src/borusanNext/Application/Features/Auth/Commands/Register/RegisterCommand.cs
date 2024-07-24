@@ -3,7 +3,10 @@ using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
+using MimeKit;
 using NArchitecture.Core.Application.Dtos;
+using NArchitecture.Core.Mailing;
+using NArchitecture.Core.Security.Entities;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
 
@@ -31,16 +34,18 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
+        private readonly IMailService _mailService;
 
         public RegisterCommandHandler(
             IUserRepository userRepository,
             IAuthService authService,
-            AuthBusinessRules authBusinessRules
-        )
+            AuthBusinessRules authBusinessRules,
+            IMailService mailService)
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
+            _mailService = mailService;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -68,6 +73,25 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                 request.IpAddress
             );
             Domain.Entities.RefreshToken addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
+
+
+            var toEmailList = new List<MailboxAddress> { new(name: createdUser.Email, createdUser.Email) };
+
+            // 1. Yöntem => HTML'i direkt koda yazmak.
+            // 2. Yöntem => HTML'i databasede tutmak
+            // 3. Yöntem => HTML'i dosyada, dosya yolunu databasede tutmak.
+            string filePath = @"C:\Users\klyyc\Desktop\Projects\NET\BorusanNext\mail.html";
+
+            string html = File.ReadAllText(filePath);
+
+            html = html.Replace("{{confirmationLink}}", "https://github.com/halitkalayci/BorusanNext");
+
+            _mailService.SendMail(new Mail()
+            {
+                ToList= toEmailList,
+                Subject="Borusan Next'e Hoş Geldin!",
+                HtmlBody=html
+            });
 
             RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
             return registeredResponse;
