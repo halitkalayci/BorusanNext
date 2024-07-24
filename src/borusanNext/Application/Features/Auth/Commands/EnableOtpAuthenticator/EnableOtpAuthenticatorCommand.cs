@@ -35,6 +35,7 @@ public class EnableOtpAuthenticatorCommand : IRequest<EnabledOtpAuthenticatorRes
             _authenticatorService = authenticatorService;
         }
 
+        // 10:25
         public async Task<EnabledOtpAuthenticatorResponse> Handle(
             EnableOtpAuthenticatorCommand request,
             CancellationToken cancellationToken
