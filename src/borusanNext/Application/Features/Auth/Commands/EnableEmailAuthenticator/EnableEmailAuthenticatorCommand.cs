@@ -75,8 +75,8 @@ public class EnableEmailAuthenticatorCommand : IRequest, ISecuredRequest
                 {
                     ToList = toEmailList,
                     Subject = "Verify Your Email - NArchitecture",
-                    TextBody =
-                        $"Click on the link to verify your email: {request.VerifyEmailUrlPrefix}?ActivationKey={HttpUtility.UrlEncode(addedEmailAuthenticator.ActivationKey)}"
+                    HtmlBody =
+                        $"Click on the link to verify your email: <a href='{request.VerifyEmailUrlPrefix}?ActivationKey={HttpUtility.UrlEncode(addedEmailAuthenticator.ActivationKey)}'>click here.</a>"
                 }
             );
         }

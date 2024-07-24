@@ -97,7 +97,7 @@ public class AuthenticatorManager : IAuthenticatorService
             {
                 ToList = toEmailList,
                 Subject = "Authenticator Code - NArchitecture",
-                TextBody = $"Enter your authenticator code: {authenticatorCode}"
+                HtmlBody = $"Enter your authenticator code: {authenticatorCode}"
             }
         );
     }
@@ -105,7 +105,7 @@ public class AuthenticatorManager : IAuthenticatorService
     private async Task VerifyAuthenticatorCodeWithEmail(User user, string authenticatorCode)
     {
         EmailAuthenticator? emailAuthenticator = await _emailAuthenticatorRepository.GetAsync(predicate: e =>
-            e.UserId == user.Id
+            e.UserId == user.Id 
         );
         if (emailAuthenticator is null)
             throw new NotFoundException("Email Authenticator not found.");
