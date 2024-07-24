@@ -1,6 +1,8 @@
 import React, {useContext} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {AuthContext} from "../../contexts/AuthContext";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store";
 
 type Props = {};
 
@@ -8,6 +10,7 @@ type Props = {};
 
 const Header = (props: Props) => {
 	const authContext = useContext(AuthContext);
+	const authRedux = useSelector((state: RootState) => state.auth);
 
 	return (
 		<nav className="bg-gray-800">
@@ -75,7 +78,7 @@ const Header = (props: Props) => {
 								>
 									Ana Sayfa
 								</NavLink>
-								{!authContext?.authData.isAuthenticated && (
+								{!authRedux.isAuthenticated && (
 									<NavLink
 										to="/login"
 										className={({isActive}) =>
@@ -86,7 +89,7 @@ const Header = (props: Props) => {
 										Giriş Yap
 									</NavLink>
 								)}
-								{authContext?.authData.isAuthenticated && (
+								{authRedux.isAuthenticated && (
 									<NavLink
 										to="/login"
 										className={({isActive}) =>
@@ -94,7 +97,7 @@ const Header = (props: Props) => {
 											(isActive ? "bg-gray-900" : "")
 										}
 									>
-										{authContext.authData.userData.email}
+										{authRedux.user.email}
 									</NavLink>
 								)}
 							</div>

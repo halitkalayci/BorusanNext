@@ -10,6 +10,9 @@ import {AUTHENTICATOR_TYPES} from "../../constants/authenticatorTypes";
 import {AuthContext} from "../../contexts/AuthContext";
 import {jwtDecode} from "jwt-decode";
 import {CLAIM_NAMES} from "../../constants/jwtClaimNames";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/store";
+import {login} from "../../store/auth/authSlice";
 type Props = {};
 
 type LoginFormValues = {
@@ -35,6 +38,7 @@ const Login = (props: Props) => {
 		authenticatorCode: null,
 	};
 	const authContext = useContext(AuthContext);
+	const dispatch = useDispatch();
 
 	const submit = async (formValues: LoginFormValues) => {
 		const authApi = new AuthApi();
@@ -47,10 +51,17 @@ const Login = (props: Props) => {
 			const token = loginResponse.data.accessToken?.token!;
 			localStorage.setItem("token", token);
 			const decodedToken = jwtDecode<any>(token);
-			authContext?.login({
-				email: decodedToken[CLAIM_NAMES.EMAIL],
-				id: decodedToken[CLAIM_NAMES.ID],
-			});
+			// authContext?.login({
+			// 	email: decodedToken[CLAIM_NAMES.EMAIL],
+			// 	id: decodedToken[CLAIM_NAMES.ID],
+			// });
+			dispatch(
+				login({
+					email: decodedToken[CLAIM_NAMES.EMAIL],
+					id: decodedToken[CLAIM_NAMES.ID],
+				}),
+			);
+
 			navigate("/");
 		} else {
 			switch (loginResponse.data.requiredAuthenticatorType) {
