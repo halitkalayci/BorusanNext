@@ -4,11 +4,11 @@ import {createSlice} from "@reduxjs/toolkit";
 import {jwtDecode} from "jwt-decode";
 import {CLAIM_NAMES} from "../../constants/jwtClaimNames";
 
+// ** State'in arayüzü. (State hangi türden hangi isimde bilgilere sahip olacak.)
 export interface AuthState {
 	isAuthenticated: boolean;
-	user: any;
+	user: any; // modellemek best practice
 }
-
 const getInitialAuthState = (): AuthState => {
 	const token = localStorage.getItem("token");
 
@@ -24,6 +24,7 @@ const getInitialAuthState = (): AuthState => {
 	} else return {isAuthenticated: false, user: null};
 };
 
+// ** Uygulama açılışında state hangi durumda başlıyacak
 const initialState: AuthState = getInitialAuthState();
 
 export const authSlice = createSlice({
