@@ -1,12 +1,15 @@
 import {Button, Card, Label, Modal, TextInput} from "flowbite-react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import * as yup from "yup";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import "./Login.css";
 import {AuthApi} from "../../api";
 import {useNavigate} from "react-router-dom";
 import {AUTHENTICATOR_TYPES} from "../../constants/authenticatorTypes";
+import {AuthContext} from "../../contexts/AuthContext";
+import {jwtDecode} from "jwt-decode";
+import {CLAIM_NAMES} from "../../constants/jwtClaimNames";
 type Props = {};
 
 type LoginFormValues = {
@@ -31,6 +34,7 @@ const Login = (props: Props) => {
 		password: "",
 		authenticatorCode: null,
 	};
+	const authContext = useContext(AuthContext);
 
 	const submit = async (formValues: LoginFormValues) => {
 		const authApi = new AuthApi();
@@ -40,8 +44,13 @@ const Login = (props: Props) => {
 		});
 
 		if (loginResponse.data.accessToken) {
-			localStorage.setItem("token", loginResponse.data.accessToken?.token!);
-
+			const token = loginResponse.data.accessToken?.token!;
+			localStorage.setItem("token", token);
+			const decodedToken = jwtDecode<any>(token);
+			authContext?.login({
+				email: decodedToken[CLAIM_NAMES.EMAIL],
+				id: decodedToken[CLAIM_NAMES.ID],
+			});
 			navigate("/");
 		} else {
 			switch (loginResponse.data.requiredAuthenticatorType) {

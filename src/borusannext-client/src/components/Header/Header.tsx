@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link, NavLink} from "react-router-dom";
+import {AuthContext} from "../../contexts/AuthContext";
 
 type Props = {};
 
 // JS + HTML =>
 
 const Header = (props: Props) => {
+	const authContext = useContext(AuthContext);
+
 	return (
 		<nav className="bg-gray-800">
 			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -72,15 +75,28 @@ const Header = (props: Props) => {
 								>
 									Ana Sayfa
 								</NavLink>
-								<NavLink
-									to="/login"
-									className={({isActive}) =>
-										"rounded-md  px-3 py-2 text-sm font-medium text-white " +
-										(isActive ? "bg-gray-900" : "")
-									}
-								>
-									Giriş Yap
-								</NavLink>
+								{!authContext?.authData.isAuthenticated && (
+									<NavLink
+										to="/login"
+										className={({isActive}) =>
+											"rounded-md  px-3 py-2 text-sm font-medium text-white " +
+											(isActive ? "bg-gray-900" : "")
+										}
+									>
+										Giriş Yap
+									</NavLink>
+								)}
+								{authContext?.authData.isAuthenticated && (
+									<NavLink
+										to="/login"
+										className={({isActive}) =>
+											"rounded-md  px-3 py-2 text-sm font-medium text-white " +
+											(isActive ? "bg-gray-900" : "")
+										}
+									>
+										{authContext.authData.userData.email}
+									</NavLink>
+								)}
 							</div>
 						</div>
 					</div>
