@@ -2,6 +2,7 @@
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Domain.Entities;
+using Hangfire;
 using MediatR;
 using MimeKit;
 using NArchitecture.Core.Application.Dtos;
@@ -77,7 +78,22 @@ public class RegisterCommand : IRequest<RegisteredResponse>, ITransactionalReque
             Domain.Entities.RefreshToken addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
 
 
-            var toEmailList = new List<MailboxAddress> { new(name: createdUser.Email, createdUser.Email) };
+
+            BackgroundJob.Schedule(() => SendMail(createdUser.Email), TimeSpan.FromDays(3).Add(TimeSpan.FromHours(-3)));
+
+
+            RecurringJob.AddOrUpdate("myJob", () => SendMail(createdUser.Email), "0 0 0-10 ? * * *");
+
+
+
+
+            RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
+            return registeredResponse;
+        }
+
+        public void SendMail(string email)
+        {
+            var toEmailList = new List<MailboxAddress> { new(name: email, email) };
 
             // 1. Yöntem => HTML'i direkt koda yazmak.
             // 2. Yöntem => HTML'i databasede tutmak
@@ -90,13 +106,10 @@ public class RegisterCommand : IRequest<RegisteredResponse>, ITransactionalReque
 
             _mailService.SendMail(new Mail()
             {
-                ToList= toEmailList,
-                Subject="Borusan Next'e Hoş Geldin!",
-                HtmlBody=html
+                ToList = toEmailList,
+                Subject = "Borusan Next'e Hoş Geldin!",
+                HtmlBody = html
             });
-
-            RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
-            return registeredResponse;
         }
     }
 }

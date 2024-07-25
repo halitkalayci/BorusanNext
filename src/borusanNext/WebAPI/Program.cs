@@ -1,4 +1,6 @@
 using Application;
+using Hangfire;
+using Hangfire.Server;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -32,6 +34,11 @@ builder.Services.AddApplicationServices(
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHangfire(config =>
+{
+    config.UseSqlServerStorage(builder.Configuration.GetConnectionString("BorusanNextDb"));
+});
+builder.Services.AddHangfireServer();
 
 const string tokenOptionsConfigurationSection = "TokenOptions";
 TokenOptions tokenOptions =
@@ -103,6 +110,11 @@ app.UseDbMigrationApplier();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseHangfireDashboard();
+
+var jobId = BackgroundJob.Schedule(
+    () => Console.WriteLine("Delayed!"),
+    TimeSpan.FromDays(7));
 
 app.MapControllers();
 
