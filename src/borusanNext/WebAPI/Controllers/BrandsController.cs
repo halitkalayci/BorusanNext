@@ -13,6 +13,13 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class BrandsController : BaseController
 {
+    [HttpGet("Example")]
+    public async Task<IActionResult> Example()
+    {
+        return Ok();
+    }
+
+
     [HttpPost]
     public async Task<IActionResult> Add([FromForm] CreateBrandCommand createBrandCommand)
     {

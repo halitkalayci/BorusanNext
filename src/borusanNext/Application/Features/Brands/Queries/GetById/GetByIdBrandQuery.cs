@@ -6,14 +6,21 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Brands.Constants.BrandsOperationClaims;
+using NArchitecture.Core.Application.Pipelines.Caching;
 
 namespace Application.Features.Brands.Queries.GetById;
 
-public class GetByIdBrandQuery : IRequest<GetByIdBrandResponse>, ISecuredRequest
+public class GetByIdBrandQuery : IRequest<GetByIdBrandResponse>, ICachableRequest
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public bool BypassCache => false;
+
+    public string CacheKey => $"GetByIdBrandQuery.{Id}";
+
+    public string? CacheGroupKey => "Brand.Get";
+
+    public TimeSpan? SlidingExpiration { get; }
 
     public class GetByIdBrandQueryHandler : IRequestHandler<GetByIdBrandQuery, GetByIdBrandResponse>
     {
