@@ -23,6 +23,7 @@ public class BrandsController : BaseController
     [HttpPost]
     public async Task<IActionResult> Add([FromForm] CreateBrandCommand createBrandCommand)
     {
+        var x = HttpContext.User;
         CreatedBrandResponse response = await Mediator.Send(createBrandCommand);
 
         return Created(uri: "", response);

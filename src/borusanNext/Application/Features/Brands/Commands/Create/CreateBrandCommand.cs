@@ -9,10 +9,13 @@ using static Application.Features.Brands.Constants.BrandsOperationClaims;
 using Microsoft.AspNetCore.Http;
 using Application.Services.ImageService;
 using NArchitecture.Core.Application.Pipelines.Caching;
+using NArchitecture.Core.Application.Pipelines.Logging;
 
 namespace Application.Features.Brands.Commands.Create;
 
-public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ICacheRemoverRequest
+
+// 10:25
+public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ICacheRemoverRequest, ILoggableRequest
 {
     public string Name { get; set; }
     public IFormFile Logo { get; set; }

@@ -9,6 +9,7 @@ using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Brands.Constants.BrandsOperationClaims;
 using NArchitecture.Core.Application.Pipelines.Caching;
+using NArchitecture.Core.CrossCuttingConcerns.Logging.Abstraction;
 
 namespace Application.Features.Brands.Queries.GetList;
 
@@ -32,11 +33,13 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
     {
         private readonly IBrandRepository _brandRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public GetListBrandQueryHandler(IBrandRepository brandRepository, IMapper mapper)
+        public GetListBrandQueryHandler(IBrandRepository brandRepository, IMapper mapper, ILogger logger)
         {
             _brandRepository = brandRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<GetListResponse<GetListBrandListItemDto>> Handle(GetListBrandQuery request, CancellationToken cancellationToken)
@@ -46,6 +49,8 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken
             );
+
+            _logger.Warning("Bu bir deneme mesajýdýr.");
 
             GetListResponse<GetListBrandListItemDto> response = _mapper.Map<GetListResponse<GetListBrandListItemDto>>(brands);
             return response;
