@@ -16,3 +16,4 @@ public class ChatHub : Hub
         await Clients.Others.SendAsync("NewMessage", message);
     }
 }
+// Iyzico, ElasticSearch
