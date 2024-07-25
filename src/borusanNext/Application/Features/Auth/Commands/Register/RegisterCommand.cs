@@ -84,7 +84,9 @@ public class RegisterCommand : IRequest<RegisteredResponse>, ITransactionalReque
 
             RecurringJob.AddOrUpdate("myJob", () => SendMail(createdUser.Email), "0 0 0-10 ? * * *");
 
-
+            // 2. Pair GÖREVİ:
+            // Her gün saat öğle 12'de tüm kullanıcılara mail gönderen bir bg job yazın. Mail html formatında güzel bir template ile son eklenen 3 arabayı
+            // göndersin..
 
 
             RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };

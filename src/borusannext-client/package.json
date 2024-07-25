@@ -11,6 +11,7 @@
 		"generate-api": "openapi-generator-cli generate -i http://localhost:60805/swagger/v1/swagger.json -g typescript-axios -o ./src/api"
 	},
 	"dependencies": {
+		"@microsoft/signalr": "^8.0.7",
 		"@reduxjs/toolkit": "^2.2.6",
 		"axios": "^1.7.2",
 		"flowbite-react": "^0.10.1",

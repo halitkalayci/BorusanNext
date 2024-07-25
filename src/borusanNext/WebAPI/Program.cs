@@ -17,6 +17,7 @@ using NArchitecture.Core.Security.WebApi.Swagger.Extensions;
 using Persistence;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using WebAPI;
+using WebAPI.Hubs;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -72,6 +73,8 @@ builder.Services.AddCors(opt =>
         p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     })
 );
+builder.Services.AddSignalR();
+
 builder.Services.AddSwaggerGen(opt =>
 {
     opt.AddSecurityDefinition(
@@ -117,6 +120,7 @@ var jobId = BackgroundJob.Schedule(
     TimeSpan.FromDays(7));
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chathub");
 
 const string webApiConfigurationSection = "WebAPIConfiguration";
 WebApiConfiguration webApiConfiguration =
