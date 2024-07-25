@@ -5,6 +5,7 @@ using Domain.Entities;
 using MediatR;
 using MimeKit;
 using NArchitecture.Core.Application.Dtos;
+using NArchitecture.Core.Application.Pipelines.Transaction;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Security.Entities;
 using NArchitecture.Core.Security.Hashing;
@@ -12,7 +13,7 @@ using NArchitecture.Core.Security.JWT;
 
 namespace Application.Features.Auth.Commands.Register;
 
-public class RegisterCommand : IRequest<RegisteredResponse>
+public class RegisterCommand : IRequest<RegisteredResponse>, ITransactionalRequest
 {
     public UserForRegisterDto UserForRegisterDto { get; set; }
     public string IpAddress { get; set; }
@@ -65,6 +66,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                     PasswordSalt = passwordSalt,
                 };
             User createdUser = await _userRepository.AddAsync(newUser);
+
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
 

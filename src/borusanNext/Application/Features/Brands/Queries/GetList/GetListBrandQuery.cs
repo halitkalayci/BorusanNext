@@ -10,10 +10,11 @@ using MediatR;
 using static Application.Features.Brands.Constants.BrandsOperationClaims;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.CrossCuttingConcerns.Logging.Abstraction;
+using NArchitecture.Core.Application.Pipelines.Performance;
 
 namespace Application.Features.Brands.Queries.GetList;
 
-public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDto>>, ICachableRequest
+public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDto>>, ICachableRequest, IIntervalRequest
 {
     public PageRequest PageRequest { get; set; }
 
@@ -26,6 +27,9 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
     public string? CacheGroupKey => "Brand.Get";
 
     public TimeSpan? SlidingExpiration => TimeSpan.FromHours(12);
+
+    public int Interval => 10;
+
     //public TimeSpan? SlidingExpiration { get; }; // => Global deðeri kullan.
 
 
@@ -49,6 +53,9 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken
             );
+
+            var x = 10000;
+            await Task.Delay(x);
 
             _logger.Warning("Bu bir deneme mesajýdýr.");
 
