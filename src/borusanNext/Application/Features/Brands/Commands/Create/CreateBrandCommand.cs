@@ -8,15 +8,21 @@ using MediatR;
 using static Application.Features.Brands.Constants.BrandsOperationClaims;
 using Microsoft.AspNetCore.Http;
 using Application.Services.ImageService;
+using NArchitecture.Core.Application.Pipelines.Caching;
 
 namespace Application.Features.Brands.Commands.Create;
 
-public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ISecuredRequest
+public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ICacheRemoverRequest
 {
     public string Name { get; set; }
     public IFormFile Logo { get; set; }
+    public bool BypassCache => false;
 
-    public string[] Roles => [Admin, Write, BrandsOperationClaims.Create];
+    public string? CacheKey { get; }
+
+    public string[]? CacheGroupKey => new string[] { "Brand.Get" };
+
+    //public string[] Roles => [Admin, Write, BrandsOperationClaims.Create];
 
     public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandResponse>
     {
