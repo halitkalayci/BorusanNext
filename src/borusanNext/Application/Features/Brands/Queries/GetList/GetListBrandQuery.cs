@@ -77,3 +77,5 @@ public class GetListBrandQuery : IRequest<List<Brand>>, IIntervalRequest
         }
     }
 }
+
+// Logstash
