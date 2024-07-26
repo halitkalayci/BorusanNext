@@ -1,4 +1,5 @@
 using Application;
+using Application.Hubs;
 using Hangfire;
 using Hangfire.Server;
 using Infrastructure;
@@ -17,7 +18,6 @@ using NArchitecture.Core.Security.WebApi.Swagger.Extensions;
 using Persistence;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using WebAPI;
-using WebAPI.Hubs;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

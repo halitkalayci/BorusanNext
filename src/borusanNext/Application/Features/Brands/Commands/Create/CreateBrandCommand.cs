@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Application.Services.ImageService;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
+using Microsoft.AspNetCore.SignalR;
+using Application.Hubs;
 
 namespace Application.Features.Brands.Commands.Create;
 
@@ -33,14 +35,16 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ICacheRemoverR
         private readonly IBrandRepository _brandRepository;
         private readonly BrandBusinessRules _brandBusinessRules;
         private readonly ImageServiceBase _imageServiceBase;
+        private readonly IHubContext<ChatHub> _chatHub;
 
         public CreateBrandCommandHandler(IMapper mapper, IBrandRepository brandRepository,
-                                         BrandBusinessRules brandBusinessRules, ImageServiceBase imageServiceBase)
+                                         BrandBusinessRules brandBusinessRules, ImageServiceBase imageServiceBase, IHubContext<ChatHub> chatHub)
         {
             _mapper = mapper;
             _brandRepository = brandRepository;
             _brandBusinessRules = brandBusinessRules;
             _imageServiceBase = imageServiceBase;
+            _chatHub = chatHub;
         }
 
         public async Task<CreatedBrandResponse> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
@@ -50,6 +54,8 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ICacheRemoverR
             brand.Logo = await _imageServiceBase.UploadAsync(request.Logo);
 
             await _brandRepository.AddAsync(brand);
+
+            await _chatHub.Clients.All.SendAsync("NewBrandCreated", brand);
 
             CreatedBrandResponse response = _mapper.Map<CreatedBrandResponse>(brand);
             return response;

@@ -3,7 +3,7 @@ using Application.Services.UsersService;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
-namespace WebAPI.Hubs;
+namespace Application.Hubs;
 
 public class ChatHub : Hub
 {

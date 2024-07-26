@@ -32,6 +32,11 @@ const Homepage = (props: Props) => {
 			console.log("Canlı yeni bir veri geldi:" + message);
 			setMessageList([...messageList, message]);
 		});
+
+		connection?.on("NewBrandCreated", brand => {
+			console.log("Yeni marka eklendi:", brand);
+		});
+
 		console.log(`Hub bağlantısı başarılı id:${connection?.connectionId}`);
 	};
 
