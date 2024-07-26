@@ -66,7 +66,7 @@ builder
             {
                 var accessToken = context.Request.Query["access_token"];
 
-                if(!String.IsNullOrEmpty(accessToken) && context.Request.Path.StartsWithSegments("ChatHub"))
+                if(!String.IsNullOrEmpty(accessToken) && context.Request.Path.StartsWithSegments("/ChatHub"))
                 {
                     context.Token = accessToken;
                 }

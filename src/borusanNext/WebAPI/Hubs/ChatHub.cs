@@ -1,9 +1,20 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Application.Services.Repositories;
+using Application.Services.UsersService;
+using MediatR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace WebAPI.Hubs;
 
 public class ChatHub : Hub
 {
+    private readonly IMediator _mediator;
+
+    // .NET IOC burada da kullanılabilir halde dolayısıyla klasik bir controller gibi (canlı olması dışında) kullanılabilir.
+    public ChatHub(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
     public override Task OnConnectedAsync()
     {
         var x = Context.ConnectionId;

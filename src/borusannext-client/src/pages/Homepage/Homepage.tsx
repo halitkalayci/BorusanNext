@@ -15,7 +15,7 @@ const Homepage = (props: Props) => {
 	useEffect(() => {
 		const token = localStorage.getItem("token") || "";
 		const newConnection = new signalR.HubConnectionBuilder()
-			.withUrl("http://localhost:60805/chathub?accessToken=" + token)
+			.withUrl("http://localhost:60805/chathub?access_token=" + token)
 			.withAutomaticReconnect()
 			.build();
 
