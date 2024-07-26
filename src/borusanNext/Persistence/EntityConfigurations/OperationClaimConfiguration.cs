@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
 using Application.Features.Brands.Constants;
+using Application.Features.Models.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -113,6 +114,21 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         #endregion
         
         featureOperationClaims.Add(new() { Id = ++lastId, Name = BrandsOperationClaims.GetDynamic });
+        
+        #region Models
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = ModelsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = ModelsOperationClaims.Read },
+                new() { Id = ++lastId, Name = ModelsOperationClaims.Write },
+                new() { Id = ++lastId, Name = ModelsOperationClaims.Create },
+                new() { Id = ++lastId, Name = ModelsOperationClaims.Update },
+                new() { Id = ++lastId, Name = ModelsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = ModelsOperationClaims.GetDynamic });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

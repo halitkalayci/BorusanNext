@@ -22,6 +22,7 @@ using NArchitecture.Core.Security.DependencyInjection;
 using Application.Services.Brands;
 using NArchitecture.Core.Application.Pipelines.Performance;
 using System.Diagnostics;
+using Application.Services.Models;
 
 namespace Application;
 
@@ -70,6 +71,7 @@ public static class ApplicationServiceRegistration
         services.AddSecurityServices<Guid, int>();
 
         services.AddScoped<IBrandService, BrandManager>();
+        services.AddScoped<IModelService, ModelManager>();
         return services;
     }
 
