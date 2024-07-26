@@ -8,6 +8,7 @@ using MediatR;
 
 namespace Application.Features.Models.Queries.GetList;
 
+// 11:15
 public class GetListModelQuery : IRequest<GetListResponse<GetListModelListItemDto>>
 {
     public PageRequest PageRequest { get; set; }
