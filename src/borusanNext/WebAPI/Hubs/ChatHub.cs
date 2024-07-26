@@ -7,7 +7,8 @@ public class ChatHub : Hub
     public override Task OnConnectedAsync()
     {
         var x = Context.ConnectionId;
-       // Clients.Group("MüşteriHizmetleri").SendAsync("NewConnection");
+
+        // Clients.Group("MüşteriHizmetleri").SendAsync("NewConnection");
         return base.OnConnectedAsync();
     }
     public async Task SendMessage(string message)

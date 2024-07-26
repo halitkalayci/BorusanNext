@@ -59,6 +59,21 @@ builder
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
         };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+
+                if(!String.IsNullOrEmpty(accessToken) && context.Request.Path.StartsWithSegments("ChatHub"))
+                {
+                    context.Token = accessToken;
+                }
+
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -120,7 +135,7 @@ var jobId = BackgroundJob.Schedule(
     TimeSpan.FromDays(7));
 
 app.MapControllers();
-app.MapHub<ChatHub>("/chathub");
+app.MapHub<ChatHub>("/chathub").RequireAuthorization();
 
 const string webApiConfigurationSection = "WebAPIConfiguration";
 WebApiConfiguration webApiConfiguration =
