@@ -60,7 +60,7 @@ public static class ApplicationServiceRegistration
         services.AddSingleton<ILogger, SerilogFileLogger>(_ => new SerilogFileLogger(fileLogConfiguration));
 
 
-        services.AddSingleton<IElasticSearch, ElasticSearchManager>(_ => new ElasticSearchManager(elasticSearchConfig));
+        services.AddSingleton<IElasticSearch, Application.Services.Elastic.ElasticSearchManager>(_ => new Application.Services.Elastic.ElasticSearchManager(elasticSearchConfig));
 
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IAuthenticatorService, AuthenticatorManager>();
