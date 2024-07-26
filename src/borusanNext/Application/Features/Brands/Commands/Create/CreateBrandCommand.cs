@@ -61,7 +61,9 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ICacheRemoverR
 
             await _chatHub.Clients.All.SendAsync("NewBrandCreated", brand);
 
-            await _elasticSearch.CreateNewIndexAsync(new IndexModel() { IndexName = "brands", AliasName = "brandTable" });
+            //await _elasticSearch.CreateNewIndexAsync(new IndexModel() { IndexName = "brands", AliasName = "brandTable" });
+
+
 
             await _elasticSearch.InsertAsync(new ElasticSearchInsertUpdateModel(brand) { 
                 IndexName = "brands", 

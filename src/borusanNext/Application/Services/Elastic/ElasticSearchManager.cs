@@ -59,7 +59,7 @@ public class ElasticSearchManager : IElasticSearch
             message: response.IsValid ? ElasticSearchMessages.Success : response.ServerError.Error.Reason
         );
     }
-
+    // 13:30
     public async Task<IElasticSearchResult> DeleteByElasticIdAsync(ElasticSearchModel model)
     {
         ElasticClient elasticClient = getElasticClient(model.IndexName);

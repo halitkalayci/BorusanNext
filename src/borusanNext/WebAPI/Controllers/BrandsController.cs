@@ -8,6 +8,7 @@ using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Brands.Queries.GetDynamic;
 using NArchitecture.Core.Persistence.Dynamic;
+using Domain.Entities;
 
 namespace WebAPI.Controllers;
 
@@ -55,10 +56,10 @@ public class BrandsController : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult<GetListResponse<GetListBrandListItemDto>>> GetList([FromQuery] PageRequest pageRequest)
+    public async Task<ActionResult<List<Brand>>> GetList([FromQuery] PageRequest pageRequest)
     {
         GetListBrandQuery getListBrandQuery = new() { PageRequest = pageRequest };
-        GetListResponse<GetListBrandListItemDto> response = await Mediator.Send(getListBrandQuery);
+        List<Brand> response = await Mediator.Send(getListBrandQuery);
         return Ok(response);
     }
     
