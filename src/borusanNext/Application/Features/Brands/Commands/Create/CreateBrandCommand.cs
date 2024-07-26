@@ -46,7 +46,7 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ICacheRemoverR
             _imageServiceBase = imageServiceBase;
             _chatHub = chatHub;
         }
-
+        // 10:15 -> Dynamic Query
         public async Task<CreatedBrandResponse> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
         {
             Brand brand = _mapper.Map<Brand>(request);
